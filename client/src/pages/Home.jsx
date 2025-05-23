@@ -1,27 +1,37 @@
-// src/pages/Home.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChatAlt2Icon, UsersIcon, ClipboardListIcon } from '@heroicons/react/outline';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ChatAlt2Icon, UsersIcon, ClipboardListIcon } from "@heroicons/react/outline";
 
 const features = [
   {
     icon: <UsersIcon className="h-12 w-12 text-primary" />,
     title: "Find Collaborators",
-    description: "Search and connect with like-minded students and developers."
+    description: "Search and connect with like-minded students and developers.",
   },
   {
     icon: <ClipboardListIcon className="h-12 w-12 text-primary" />,
     title: "Post Projects",
-    description: "Share your ideas and find teammates to help you build."
+    description: "Share your ideas and find teammates to help you build.",
   },
   {
     icon: <ChatAlt2Icon className="h-12 w-12 text-primary" />,
     title: "Team Chat",
-    description: "Collaborate instantly with project teammates."
-  }
+    description: "Collaborate instantly with project teammates.",
+  },
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/explore-projects"); // Change this to your actual dashboard or projects route
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <section className="text-center py-20">
@@ -29,12 +39,12 @@ const Home = () => {
         <p className="text-lg text-gray-400 mb-8">
           Find project collaborators and hackathon teammates effortlessly.
         </p>
-        <Link
-          to="/register"
-          className="btn btn-primary btn-lg"
+        <button
+          onClick={handleGetStarted}
+          className="btn btn-primary btn-lg hover:bg-white hover:text-primary transition-colors duration-300"
         >
           Get Started
-        </Link>
+        </button>
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
